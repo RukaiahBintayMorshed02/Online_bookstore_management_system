@@ -7,12 +7,12 @@
 
 ## How to run
 
-### Option A — command line
+### Option A - command line
 ```
 mvn clean javafx:run
 ```
 
-### Option B — IntelliJ IDEA
+### Option B - IntelliJ IDEA
 1. Open the `bookstore` folder as a project (File > Open, select the folder with `pom.xml`).
 2. Let Maven finish downloading dependencies (bottom-right progress bar).
 3. Right-click `Main.java` > Run 'Main.main()'.

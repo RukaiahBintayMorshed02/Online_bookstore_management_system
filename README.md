@@ -45,10 +45,10 @@ data/
 ```
 
 ## Using the app
-1. **Catalog tab** — add books (pick PHYSICAL or EBOOK from the dropdown, fill in the
+1. **Catalog tab** - add books (pick PHYSICAL or EBOOK from the dropdown, fill in the
    fields, the last field is weight in kg for physical books or file size in MB for
    e-books). Search by title. Save/load the catalog to `data/books.csv`.
-2. **Customers & orders tab** — register a customer with an ID, then place an order
+2. **Customers & orders tab** - register a customer with an ID, then place an order
    using that customer ID and a book's ISBN. Try ordering more copies than are in
    stock, or an ISBN that doesn't exist, to see the exception handling in action.
-3. **Order history tab** — shows every order placed this session.
+3. **Order history tab** - shows every order placed this session.

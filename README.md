@@ -2,8 +2,8 @@
 
 ## Requirements
 - JDK 17 or later
-- Maven (or use your IDE's built-in Maven support - IntelliJ and Eclipse both have this)
-- Internet access the first time you build (Maven needs to download the JavaFX libraries)
+- Maven 
+- Internet access the first time to build 
 
 ## How to run
 

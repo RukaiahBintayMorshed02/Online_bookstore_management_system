@@ -1,0 +1,15 @@
+/workspaces/Online_bookstore_management_system/src/main/java/com/bookstore/Main.java
+/workspaces/Online_bookstore_management_system/src/main/java/com/bookstore/controller/BookstoreController.java
+/workspaces/Online_bookstore_management_system/src/main/java/com/bookstore/exceptions/BookNotFoundException.java
+/workspaces/Online_bookstore_management_system/src/main/java/com/bookstore/exceptions/InsufficientStockException.java
+/workspaces/Online_bookstore_management_system/src/main/java/com/bookstore/model/Book.java
+/workspaces/Online_bookstore_management_system/src/main/java/com/bookstore/model/Customer.java
+/workspaces/Online_bookstore_management_system/src/main/java/com/bookstore/model/EBook.java
+/workspaces/Online_bookstore_management_system/src/main/java/com/bookstore/model/Order.java
+/workspaces/Online_bookstore_management_system/src/main/java/com/bookstore/model/OrderItem.java
+/workspaces/Online_bookstore_management_system/src/main/java/com/bookstore/model/Person.java
+/workspaces/Online_bookstore_management_system/src/main/java/com/bookstore/model/PhysicalBook.java
+/workspaces/Online_bookstore_management_system/src/main/java/com/bookstore/service/BookCatalog.java
+/workspaces/Online_bookstore_management_system/src/main/java/com/bookstore/service/CustomerService.java
+/workspaces/Online_bookstore_management_system/src/main/java/com/bookstore/service/FileHandler.java
+/workspaces/Online_bookstore_management_system/src/main/java/com/bookstore/service/OrderService.java

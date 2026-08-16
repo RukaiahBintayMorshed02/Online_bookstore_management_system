@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!--
+  fx:controller tells JavaFX which Java class handles the events from this
+  layout. Every fx:id below becomes a field JavaFX auto-injects into that
+  controller (see the @FXML fields in BookstoreController.java) - that's
+  how "isbnField" here ends up connected to "private TextField isbnField"
+  in the Java code.
+-->
+<TabPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.bookstore.controller.BookstoreController">
+
+    <Tab text="Catalog" closable="false">
+        <VBox spacing="10">
+            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+
+            <HBox spacing="10">
+                <TextField fx:id="searchField" promptText="Search by title..." />
+                <Button text="Search" onAction="#onSearch" />
+                <Button text="Show all" onAction="#onShowAll" />
+            </HBox>
+
+            <TableView fx:id="bookTable" prefHeight="260">
+                <columns>
+                    <TableColumn fx:id="colType" text="Type" prefWidth="80"/>
+                    <TableColumn fx:id="colIsbn" text="ISBN" prefWidth="90"/>
+                    <TableColumn fx:id="colTitle" text="Title" prefWidth="220"/>
+                    <TableColumn fx:id="colAuthor" text="Author" prefWidth="140"/>
+                    <TableColumn fx:id="colPrice" text="Price" prefWidth="70"/>
+                    <TableColumn fx:id="colQty" text="Qty" prefWidth="60"/>
+                </columns>
+            </TableView>
+            <HBox spacing="8">
+                <Button text="Remove selected book" onAction="#onRemoveBook"/>
+            </HBox>
+            <Separator/>
+            <Label text="Add a new book" style="-fx-font-weight: bold;"/>
+            <HBox spacing="8">
+                <ComboBox fx:id="typeCombo" promptText="Type"/>
+                <TextField fx:id="isbnField" promptText="ISBN"/>
+                <TextField fx:id="titleField" promptText="Title"/>
+                <TextField fx:id="authorField" promptText="Author"/>
+                <TextField fx:id="priceField" promptText="Price"/>
+                <TextField fx:id="qtyField" promptText="Qty"/>
+                <TextField fx:id="extraField" promptText="Weight(kg) or FileSize(MB)"/>
+                <Button text="Add book" onAction="#onAddBook"/>
+            </HBox>
+
+            <HBox spacing="8">
+                <Button text="Save catalog to file" onAction="#onSaveBooks"/>
+                <Button text="Load catalog from file" onAction="#onLoadBooks"/>
+            </HBox>
+        </VBox>
+    </Tab>
+
+    <Tab text="Customers &amp; orders" closable="false">
+        <VBox spacing="10">
+            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+
+            <Label text="Register a customer" style="-fx-font-weight: bold;"/>
+            <HBox spacing="8">
+                <TextField fx:id="custIdField" promptText="Customer ID"/>
+                <TextField fx:id="custNameField" promptText="Name"/>
+                <TextField fx:id="custEmailField" promptText="Email"/>
+                <TextField fx:id="custAddressField" promptText="Address"/>
+                <Button text="Register" onAction="#onRegisterCustomer"/>
+            </HBox>
+
+            <Separator/>
+            <Label text="Place an order" style="-fx-font-weight: bold;"/>
+            <HBox spacing="8">
+                <TextField fx:id="orderCustIdField" promptText="Customer ID"/>
+                <TextField fx:id="orderIsbnField" promptText="Book ISBN"/>
+                <TextField fx:id="orderQtyField" promptText="Quantity"/>
+                <Button text="Place order" onAction="#onPlaceOrder"/>
+            </HBox>
+
+            <Label fx:id="statusLabel" style="-fx-text-fill: #a32d2d;"/>
+        </VBox>
+    </Tab>
+
+    <Tab text="Order history" closable="false">
+        <VBox spacing="10">
+            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+            <ListView fx:id="orderListView"/>
+        </VBox>
+    </Tab>
+
+</TabPane>

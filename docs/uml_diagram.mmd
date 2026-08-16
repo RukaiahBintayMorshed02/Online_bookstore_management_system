@@ -1,0 +1,132 @@
+classDiagram
+    class Person {
+        <<abstract>>
+        -String id
+        -String name
+        -String email
+        +getId() String
+        +getName() String
+        +getEmail() String
+        +describe()* String
+    }
+
+    class Customer {
+        -String address
+        -List~Order~ orderHistory
+        +getAddress() String
+        +addOrder(Order)
+        +describe() String
+    }
+
+    class Book {
+        <<abstract>>
+        -String isbn
+        -String title
+        -String author
+        -double price
+        -int quantity
+        +getExtraCost()* double
+        +getFormatLabel()* String
+        +toCsv() String
+    }
+
+    class PhysicalBook {
+        -double weightKg
+        +getExtraCost() double
+        +getFormatLabel() String
+    }
+
+    class EBook {
+        -double fileSizeMb
+        -String downloadLink
+        +getExtraCost() double
+        +getFormatLabel() String
+    }
+
+    class OrderItem {
+        -Book book
+        -int quantity
+        +getSubtotal() double
+    }
+
+    class Order {
+        -String orderId
+        -Customer customer
+        -List~OrderItem~ items
+        -LocalDate orderDate
+        -String status
+        +addItem(OrderItem)
+        +getTotalAmount() double
+    }
+
+    class BookCatalog {
+        -List~Book~ books
+        +addBook(Book)
+        +removeBook(isbn)
+        +findByIsbn(isbn) Book
+        +searchByTitle(keyword)
+        +updateStock(isbn, qty)
+    }
+
+    class CustomerService {
+        -List~Customer~ customers
+        +register(...) Customer
+        +findById(id) Customer
+    }
+
+    class OrderService {
+        -BookCatalog catalog
+        -List~Order~ orders
+        +placeOrder(...) Order
+    }
+
+    class FileHandler {
+        -String filePath
+        +saveBooks(List~Book~)
+        +loadBooks() List~Book~
+    }
+
+    class BookstoreController {
+        -BookCatalog catalog
+        -CustomerService customerService
+        -OrderService orderService
+        -FileHandler fileHandler
+        +onAddBook()
+        +onRemoveBook()
+        +onPlaceOrder()
+        +onSaveBooks()
+        +onLoadBooks()
+    }
+
+    class Main {
+        +start(Stage)
+        +main(String[])
+    }
+
+    class BookNotFoundException {
+        +BookNotFoundException(isbn)
+    }
+
+    class InsufficientStockException {
+        +InsufficientStockException(title, req, avail)
+    }
+
+    Person <|-- Customer
+    Book <|-- PhysicalBook
+    Book <|-- EBook
+    Order "1" *-- "1..*" OrderItem : contains
+    OrderItem --> Book : refers to
+    Order --> Customer : placed by
+    BookCatalog "1" o-- "0..*" Book : manages
+    CustomerService "1" o-- "0..*" Customer : manages
+    OrderService --> BookCatalog : uses
+    OrderService --> Order : creates
+    OrderService ..> BookNotFoundException : throws
+    OrderService ..> InsufficientStockException : throws
+    BookCatalog ..> BookNotFoundException : throws
+    FileHandler ..> Book : saves/loads
+    BookstoreController --> BookCatalog
+    BookstoreController --> OrderService
+    BookstoreController --> CustomerService
+    BookstoreController --> FileHandler
+    Main --> BookstoreController : loads via FXML

@@ -4,13 +4,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<!--
-  fx:controller tells JavaFX which Java class handles the events from this
-  layout. Every fx:id below becomes a field JavaFX auto-injects into that
-  controller (see the @FXML fields in BookstoreController.java) - that's
-  how "isbnField" here ends up connected to "private TextField isbnField"
-  in the Java code.
--->
 <TabPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.bookstore.controller.BookstoreController">
 
     <Tab text="Catalog" closable="false">

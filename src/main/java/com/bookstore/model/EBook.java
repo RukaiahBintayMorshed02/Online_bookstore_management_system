@@ -1,6 +1,5 @@
 package com.bookstore.model;
 
-/** A downloadable book: no shipping cost, but has a file size and download link. */
 public class EBook extends Book {
 
     private double fileSizeMb;
@@ -38,7 +37,11 @@ public class EBook extends Book {
     public String getFormatLabel() {
         return "EBOOK";
     }
-
+    @Override
+    public String getExtraDetail() {
+    return fileSizeMb + " MB";
+    }
+    
     @Override
     public String toCsv() {
         return super.toCsv() + "," + fileSizeMb + "," + downloadLink;

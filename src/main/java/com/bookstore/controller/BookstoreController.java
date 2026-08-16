@@ -54,6 +54,7 @@ public class BookstoreController implements Initializable {
     @FXML private TableColumn<Book, String> colAuthor;
     @FXML private TableColumn<Book, Double> colPrice;
     @FXML private TableColumn<Book, Integer> colQty;
+    @FXML private TableColumn<Book, String> colExtra;
     @FXML private ComboBox<String> typeCombo;
     @FXML private TextField isbnField;
     @FXML private TextField titleField;
@@ -104,6 +105,7 @@ public class BookstoreController implements Initializable {
         colAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));
         colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         colQty.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        colExtra.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getExtraDetail()));
 
         bookTable.setItems(displayedBooks);
 

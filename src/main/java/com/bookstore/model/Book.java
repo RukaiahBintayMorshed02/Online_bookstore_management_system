@@ -62,6 +62,8 @@ public abstract class Book {
 
     public abstract String getFormatLabel();
 
+    public abstract String getExtraDetail();
+    
     public String toCsv() {
         return getFormatLabel() + "," + isbn + "," + title + "," + author + "," + price + "," + quantity;
     }

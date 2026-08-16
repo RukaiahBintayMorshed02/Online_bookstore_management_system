@@ -31,6 +31,7 @@
                     <TableColumn fx:id="colAuthor" text="Author" prefWidth="140"/>
                     <TableColumn fx:id="colPrice" text="Price" prefWidth="70"/>
                     <TableColumn fx:id="colQty" text="Qty" prefWidth="60"/>
+                    <TableColumn fx:id="colExtra" text="Weight/Size" prefWidth="100"/>
                 </columns>
             </TableView>
             <HBox spacing="8">

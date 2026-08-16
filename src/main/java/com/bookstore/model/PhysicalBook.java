@@ -1,10 +1,9 @@
 package com.bookstore.model;
 
-/** A printed book that needs to be shipped, so it has weight and a shipping cost. */
 public class PhysicalBook extends Book {
 
     private double weightKg;
-    private static final double SHIPPING_RATE_PER_KG = 2.50;
+    private static final double SHIPPING_RATE_PER_KG = 50.0;
 
     public PhysicalBook(String isbn, String title, String author, double price, int quantity, double weightKg) {
         super(isbn, title, author, price, quantity);
@@ -30,10 +29,12 @@ public class PhysicalBook extends Book {
     }
 
     @Override
+    public String getExtraDetail() {
+    return weightKg + " kg";
+    }
+
+    @Override
     public String toCsv() {
-        // Reuses Book's toCsv() and appends the extra field. This is
-        // polymorphism + code reuse working together: we didn't rewrite
-        // the shared fields, only added what's new to this subclass.
         return super.toCsv() + "," + weightKg;
     }
 }

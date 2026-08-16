@@ -6,13 +6,6 @@ import com.bookstore.model.Book;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * BookCatalog is a "manager" class: it owns the master List<Book> and is
- * the ONLY place in the program allowed to add/remove/search books
- * directly. Every other class (the controller, OrderService) goes through
- * this class instead of touching a raw List itself - this keeps the rules
- * about the catalog (e.g. "ISBN must be unique") enforced in one place.
- */
 public class BookCatalog {
 
     private List<Book> books;
@@ -26,16 +19,10 @@ public class BookCatalog {
     }
 
     public void removeBook(String isbn) throws BookNotFoundException {
-        Book book = findByIsbn(isbn); // throws if not found, so we stop here on failure
+        Book book = findByIsbn(isbn); // throws if not found
         books.remove(book);
     }
 
-    /**
-     * Throws a CHECKED exception instead of returning null. This forces
-     * every caller (OrderService, the controller) to explicitly deal with
-     * "book might not exist" rather than accidentally causing a
-     * NullPointerException three lines later.
-     */
     public Book findByIsbn(String isbn) throws BookNotFoundException {
         for (Book b : books) {
             if (b.getIsbn().equalsIgnoreCase(isbn)) {
@@ -45,7 +32,6 @@ public class BookCatalog {
         throw new BookNotFoundException(isbn);
     }
 
-    /** Simple case-insensitive partial match search used by the UI search box. */
     public List<Book> searchByTitle(String keyword) {
         List<Book> results = new ArrayList<>();
         for (Book b : books) {

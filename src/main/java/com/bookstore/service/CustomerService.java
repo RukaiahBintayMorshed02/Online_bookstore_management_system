@@ -25,10 +25,7 @@ public class CustomerService {
                 return c;
             }
         }
-        return null; // Returning null here is fine because "not registered yet" is a
-                     // normal outcome the controller checks with a simple if-statement -
-                     // unlike BookCatalog, this isn't a rule violation, so we don't need
-                     // a checked exception for it.
+        return null; 
     }
 
     public List<Customer> getAllCustomers() {

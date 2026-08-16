@@ -31,18 +31,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-/**
- * BookstoreController is the ONLY class that touches JavaFX UI components
- * directly. It does not contain business rules itself (no "if quantity
- * exceeds stock" logic lives here) - it just collects what the user typed,
- * hands it to the correct service class, and displays the result or the
- * error. This separation means the service classes could be reused by a
- * completely different UI (a web app, a command-line tool) without any
- * changes.
- *
- * Every @FXML field below is matched by fx:id in bookstore.fxml - JavaFX
- * fills these in automatically right before initialize() runs.
- */
 public class BookstoreController implements Initializable {
 
     // --- Catalog tab ---
@@ -76,29 +64,16 @@ public class BookstoreController implements Initializable {
     // --- Order history tab ---
     @FXML private ListView<String> orderListView;
 
-    // The controller owns one instance of each service. In a bigger app
-    // these might be "injected" from outside, but for a project this size,
-    // creating them directly here is simple and easy to explain.
     private final BookCatalog catalog = new BookCatalog();
     private final CustomerService customerService = new CustomerService();
     private final OrderService orderService = new OrderService(catalog);
     private final FileHandler fileHandler = new FileHandler("data/books.csv");
-
     private final ObservableList<Book> displayedBooks = FXCollections.observableArrayList();
 
-    /**
-     * JavaFX calls this automatically right after the FXML is loaded and
-     * all @FXML fields are injected. It's the JavaFX equivalent of a
-     * constructor for UI setup.
-     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         typeCombo.setItems(FXCollections.observableArrayList("PHYSICAL", "EBOOK"));
 
-        // PropertyValueFactory connects a table column to a getter method
-        // by name: "type" -> getType(), "price" -> getPrice(), etc.
-        // Book doesn't have getType()/getFormat() as a plain property, so
-        // we use small helper lambdas for the columns that need one.
         colType.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getFormatLabel()));
         colIsbn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
         colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -109,7 +84,6 @@ public class BookstoreController implements Initializable {
 
         bookTable.setItems(displayedBooks);
 
-        // Try to load any previously saved catalog on startup.
         onLoadBooks();
     }
 
@@ -141,22 +115,14 @@ public class BookstoreController implements Initializable {
             statusLabel.setText("Added: " + title);
 
         } catch (NumberFormatException e) {
-            // Thrown by Double.parseDouble/Integer.parseInt if the user
-            // typed non-numeric text into price/qty/weight. We catch it
-            // here, right at the UI boundary, and turn it into a friendly
-            // message instead of letting the app crash.
             showError("Price, quantity and weight/file-size must be numbers.");
         } catch (IllegalArgumentException e) {
-            // Thrown by Book's own setters (e.g. negative price).
             showError(e.getMessage());
         }
     }
     
     @FXML
     private void onRemoveBook() {
-    // getSelectionModel().getSelectedItem() gives us whichever row the
-    // user tapped in the TableView - this is how JavaFX tables expose
-    // "what's currently selected" without you tracking it manually.
         Book selected = bookTable.getSelectionModel().getSelectedItem();
         if (selected == null) {
         showError("Select a book in the table first.");
@@ -167,9 +133,6 @@ public class BookstoreController implements Initializable {
         refreshTable(catalog.getAllBooks());
         statusLabel.setText("Removed: " + selected.getTitle());
         } catch (BookNotFoundException e) {
-        // In practice this shouldn't happen since the book came
-        // straight from the table, but we still handle it - the
-        // catalog is the single source of truth, not the table.
         showError(e.getMessage());
         }
     }
@@ -191,9 +154,6 @@ public class BookstoreController implements Initializable {
             fileHandler.saveBooks(catalog.getAllBooks());
             statusLabel.setText("Catalog saved to data/books.csv");
         } catch (IOException e) {
-            // IOException covers things like the disk being full or a
-            // permissions problem - genuinely outside our control, so we
-            // just inform the user rather than trying to "fix" it.
             showError("Could not save file: " + e.getMessage());
         }
     }
@@ -256,9 +216,6 @@ public class BookstoreController implements Initializable {
             return;
         }
 
-        // This is the key demonstration of exception handling: two
-        // different checked exceptions, each caught separately so we can
-        // give the user a specific, useful message for each case.
         try {
             Order order = orderService.placeOrder(customer, isbn, qty);
             orderListView.getItems().add(order.toString());

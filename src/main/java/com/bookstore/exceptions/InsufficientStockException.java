@@ -1,6 +1,5 @@
 package com.bookstore.exceptions;
 
-/** Thrown when a customer tries to order more copies than are in stock. */
 public class InsufficientStockException extends Exception {
 
     public InsufficientStockException(String title, int requested, int available) {
